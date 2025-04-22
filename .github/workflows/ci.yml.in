@@ -1,0 +1,57 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build-linux:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Clang
+        uses: actions/setup-clang@v2
+
+      - name: Set up Ninja
+        uses: actions/setup-ninja@v2
+
+      - name: Get APIMacros and execute
+        run: |
+          curl -s https://raw.github.com/IHateGameDev/APIMacros/getAPIMacros.sh | sh api
+
+      - name: Build Project
+        run: |
+          mkdir build
+          cd build
+          cmake -DCMAKE_BUILD_TYPE=Release -DBUILD_SHARED -DBUILD_TESTS -DLAUNCH_TESTS .. -G Ninja
+          ninja
+
+  build-windows:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Clang
+        uses: actions/setup-clang@v2
+
+      - name: Set up Ninja
+        uses: actions/setup-ninja@v2
+
+      - name: Get APIMacros and execute
+        run: |
+          curl -s https://raw.github.com/IHateGameDev/APIMacros/getAPIMacros.sh | sh api
+
+      - name: Build Project
+        run: |
+          mkdir build
+          cd build
+          cmake -DCMAKE_BUILD_TYPE=Release -DBUILD_SHARED -DBUILD_TESTS -DLAUNCH_TESTS .. -G Ninja
+          ninja
+
