@@ -28,8 +28,11 @@ list(REMOVE_ITEM ffi "${CMAKE_CURRENT_SOURCE_DIR}/CMakeLists.txt.in")
 foreach(fileIn ${ffi})
   get_filename_component(fileOut ${fileIn} NAME_WE)
   get_filename_component(fileDir ${fileIn} DIRECTORY)
-  configure_file(${fileIn}"${fileDir}/${fileOut}" @ONLY)
-  file(REMOVE ${fileIn})
+  configure_file(${fileIn} "${fileDir}/${fileOut}" @ONLY)
+  
+  if(REMOVE_INPUTS)
+    file(REMOVE ${fileIn})
+  endif()
 endforeach()
 
 if(OVERWRITE_LISTS)
