@@ -1,7 +1,6 @@
 cmake_minimum_required(VERSION 3.10)
 project(Template)
 
-option(OVERWRITE_LISTS "CMakeLists.txt.in to CMakeLists.txt(not CMakeLists.txt.out)" ON)
 option(REMOVE_INPUTS "Remove *.in files" ON)
 
 set(PROJECT_NAME "defaultProjectName" CACHE STRING "Project name insert")
@@ -23,21 +22,14 @@ message(STATUS "Current year: ${CURRENT_YEAR}")
 
 file(GLOB_RECURSE ffi "*.in")
 
-list(REMOVE_ITEM ffi "${CMAKE_CURRENT_SOURCE_DIR}/CMakeLists.txt.in")
-
 foreach(fileIn ${ffi})
-  get_filename_component(fileOut ${fileIn} NAME_WE)
-  get_filename_component(fileDir ${fileIn} DIRECTORY)
-  configure_file(${fileIn} "${fileDir}/${fileOut}" @ONLY)
+  string(LENGTH fileIn fileOutLength)
+  math(EXPR fileOutWLELength "${fileOutLength} - 3")
+  string(SUBSTRING fileIn 0 ${fileOutWLELength} fileOut)
+
+  configure_file(${fileIn} ${fileOut} @ONLY)
   
   if(REMOVE_INPUTS)
     file(REMOVE ${fileIn})
   endif()
 endforeach()
-
-if(OVERWRITE_LISTS)
-  configure_file(CMakeLists.txt.in CMakeLists.txt @ONLY)
-else()
-  configure_file(CMakeLists.txt.in CMakeLists.txt.out @ONLY)
-endif()
-
