@@ -21,7 +21,7 @@ git clone https://github.com/IHateGameDev/@PROJECT_NAME@.git
 cd @PROJECT_NAME@
 
 # Get APIMacros dependencies if they are not installed:
-wget https://raw.github.com/IHateGameDev/@PROJECT_NAME@/getAPIMacros.sh | sh
+wget https://raw.github.com/IHateGameDev/APIMacros/getAPIMacros.sh | sh api # override shared useful
 ```
 
 ### Building

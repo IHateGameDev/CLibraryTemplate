@@ -15,8 +15,8 @@
 
 ## Features
 
-- **Depends on:**
-  - [APIMacros](https://github.com/IHateGameDev/APIMacros)
+### Dependencies
+  - [APIMacros](https://github.com/IHateGameDev/APIMacros) (api)
 
 ## Guidelines
 
