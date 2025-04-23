@@ -51,3 +51,8 @@ if(BUILD_SHARED)
   target_compile_options(@PROJECT_NAME_LOWER@-shared "-DAPI_SHARED_BUILD")
   install(TARGETS @PROJECT_NAME_LOWER@-shared DESTINATION lib)
 endif()
+
+###### TESTS SECTION ######
+if(BUILD_TESTS)
+  add_subdirectory(${CMAKE_SOURCE_DIR}/Tests/)
+endif()
