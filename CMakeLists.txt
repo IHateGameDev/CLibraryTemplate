@@ -23,12 +23,16 @@ message(STATUS "Current year: ${CURRENT_YEAR}")
 file(GLOB_RECURSE ffi "*.in")
 
 foreach(fileIn ${ffi})
-  string(LENGTH fileIn fileOutLength)
+  message(STATUS "File input: ${fileIn}")
+
+  string(LENGTH ${fileIn} fileOutLength)
   math(EXPR fileOutWLELength "${fileOutLength} - 3")
-  string(SUBSTRING fileIn 0 ${fileOutWLELength} fileOut)
+  string(SUBSTRING "${fileIn}" 0 ${fileOutWLELength} fileOut)
+
+  message(STATUS "File output ${fileOut}\n")
 
   configure_file(${fileIn} ${fileOut} @ONLY)
-  
+
   if(REMOVE_INPUTS)
     file(REMOVE ${fileIn})
   endif()
