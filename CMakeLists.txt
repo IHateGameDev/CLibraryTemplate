@@ -37,3 +37,5 @@ foreach(fileIn ${ffi})
     file(REMOVE ${fileIn})
   endif()
 endforeach()
+
+file(RENAME "${CMAKE_SOURCE_DIR}/Lib" "${CMAKE_SOURCE_DIR}/${PROJECT_NAME}")
