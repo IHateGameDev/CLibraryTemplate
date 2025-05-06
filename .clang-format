@@ -1,3 +1,15 @@
 BasedOnStyle: LLVM
 ColumnLimit: 80
 PointerAlignment: Left
+
+AlignConsecutiveAssignments: Consecutive
+AlignConsecutiveBitFields: Consecutive
+AlignConsecutiveMacros: Consecutive
+
+AlignEscapedNewlines: Right
+AlignOperands: AlignAfterOperator
+
+AllowShortBlocksOnASingleLine: Empty
+AllowShortCaseLabelsOnASingleLine: true
+
+BitFieldColonSpacing: After
