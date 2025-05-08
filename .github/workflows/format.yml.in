@@ -1,0 +1,33 @@
+name: Clang Format
+
+on: [push, pull_request]
+
+jobs:
+  format:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Install clang-format
+        run: sudo apt-get install clang-format
+
+      - name: Check for changes and format
+        run: |
+          CHANGED_FILES=$(git diff --name-only)
+
+          if echo "$CHANGED_FILES" | grep -E '\.c$|\.cpp$|\.h$|\.hpp$|\.ino$'; then
+            echo "Formatting changed files..."
+            echo "$CHANGED_FILES" | grep -E '\.c$|\.cpp$|\.h$|\.hpp$|\.ino$' | xargs clang-format -i
+
+            git config --global user.name "IHGD-github-actions"
+            git config --global user.email "ihategamedev@proton.me"
+
+            git add .
+
+            git commit -m "Apply clang-format"
+            git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }} HEAD:${{ github.ref }}
+          else
+            echo "No relevant changes to format."
+          fi
+

@@ -3,3 +3,4 @@ CompileFlags:
     - -x
     - c
     - -std=c23
+    - -I${CLANGD_SOURCE_DIR}/@PROJECT_NAME@

@@ -7,15 +7,31 @@ option(BUILD_STATIC "Building static library" ON)
 option(BUILD_SHARED "Building shared library" OFF)
 option(BUILD_TESTS "Building tests for library" ON)
 
-###### SETUP COMPILER ######
+option(C_COMPILER "Compiler for C" STRING "clang")
+option(ASSEMBLER "Assembler" STRING "clang")
+option(BUILD_TYPE "aka CMAKE_BUILD_TYPE" STRING "Debug")
+option(OPT_LEVEL "Optimization level for compiler \"-O3\"" STRING "3")
 
-find_program(CLANG_PATH clang)
+###### SETUP COMPILERS SECTION ######
 
-if(CLANG_PATH)
-  message(STATUS "Clang found: ${CLANG_PATH}")
-  set(CMAKE_C_COMPILER ${CLANG_PATH})
+find_program(C_COMPILER_PATH ${C_COMPILER})
+
+if(C_COMPILER_PATH)
+  message(STATUS "${C_COMPILER} found: ${C_COMPILER_PATH}")
+  set(CMAKE_C_COMPILER ${C_COMPILER_PATH})
 else()
-  message(STATUS "Clang not found, using default compiler.")
+  message(WARNING "${C_COMPILER} not found. Please install it.")
+endif()
+
+if(ASSEMBLER AND ASSEMBLER NOT STREQUAL C_COMPILER)
+  find_program(ASSEMBLER_PATH ${ASSEMBLER})
+  
+  if(ASSEMBLER_PATH)
+    message(STATUS "${ASSEMBLER} found: ${ASSEMBLER_PATH}")
+    set(CMAKE_ASM_COMPILER ${ASSEMBLER_PATH})
+  else()
+    message(WARNING "${ASSEMBLER} not found, using default assembler.")
+  endif()
 endif()
 
 ###### SETUP C SECTION ######
@@ -25,9 +41,10 @@ set(CMAKE_C_STANDARD_REQUIRED ON)
 
 include_directories(
   ${CMAKE_SOURCE_DIR}
+  ${CMAKE_SOURCE_DIR}/@PROJECT_NAME@
 )
 
-set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall -Wextra -O3")
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall -Wextra -O${OPT_LEVEL}")
 
 if(CMAKE_BUILD_TYPE STREQUAL "Debug")
   set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -g")
@@ -37,22 +54,28 @@ endif()
 
 install(DIRECTORIES ${CMAKE_SOURCE_DIR}/@PROJECT_NAME@ DESTINATION include)
 
-file(GLOB_RECURCE @PROJECT_NAME@Sources
+file(GLOB_RECURSE @PROJECT_NAME@Sources
   ${CMAKE_SOURCE_DIR}/src/*.c
+  ${CMAKE_SOURCE_DIR}/src/*.s
+  ${CMAKE_SOURCE_DIR}/src/*.S
 )
 
 if(BUILD_STATIC)
-  add_library(STATIC @PROJECT_NAME_LOWER@-static @PROJECT_NAME@Sources)
-  install_targets(@PROJECT_NAME_LOWER@-static DESTINATION lib)
+  add_library(@PROJECT_NAME_LOWER@-static STATIC ${@PROJECT_NAME@Sources})
+  set_target_properties(@PROJECT_NAME_LOWER@-static PROPERTIES OUTPUT_NAME @PROJECT_NAME_LOWER@)  
+  install(TARGETS @PROJECT_NAME_LOWER@-static DESTINATION lib)
 endif()
 
 if(BUILD_SHARED)
-  add_library(SHARED @PROJECT_NAME_LOWER@-shared @PROJECT_NAME@Sources)
-  target_compile_options(@PROJECT_NAME_LOWER@-shared "-DAPI_SHARED_BUILD")
+  add_library(@PROJECT_NAME_LOWER@-shared SHARED ${@PROJECT_NAME@Sources})
+  set_target_properties(@PROJECT_NAME_LOWER@-shared PROPERTIES OUTPUT_NAME @PROJECT_NAME_LOWER@)
+  target_compile_options(@PROJECT_NAME_LOWER@-shared PRIVATE "-DAPI_SHARED_BUILD")
   install(TARGETS @PROJECT_NAME_LOWER@-shared DESTINATION lib)
 endif()
 
 ###### TESTS SECTION ######
+
 if(BUILD_TESTS)
   add_subdirectory(${CMAKE_SOURCE_DIR}/Tests/)
 endif()
+
