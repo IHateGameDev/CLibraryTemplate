@@ -9,7 +9,6 @@ option(BUILD_TESTS "Building tests for library" ON)
 
 option(C_COMPILER "Compiler for C" STRING "clang")
 option(ASSEMBLER "Assembler" STRING "clang")
-option(BUILD_TYPE "aka CMAKE_BUILD_TYPE" STRING "Debug")
 option(OPT_LEVEL "Optimization level for compiler \"-O3\"" STRING "3")
 
 ###### SETUP COMPILERS SECTION ######
