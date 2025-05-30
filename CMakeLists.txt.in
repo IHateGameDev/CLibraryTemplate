@@ -53,20 +53,20 @@ endif()
 
 install(DIRECTORIES ${CMAKE_SOURCE_DIR}/@PROJECT_NAME@ DESTINATION include)
 
-file(GLOB_RECURSE @PROJECT_NAME@Sources
+file(GLOB_RECURSE LibSources
   ${CMAKE_SOURCE_DIR}/src/*.c
   ${CMAKE_SOURCE_DIR}/src/*.s
   ${CMAKE_SOURCE_DIR}/src/*.S
 )
 
 if(BUILD_STATIC)
-  add_library(@PROJECT_NAME_LOWER@-static STATIC ${@PROJECT_NAME@Sources})
+  add_library(@PROJECT_NAME_LOWER@-static STATIC ${LibSources})
   set_target_properties(@PROJECT_NAME_LOWER@-static PROPERTIES OUTPUT_NAME @PROJECT_NAME_LOWER@)  
   install(TARGETS @PROJECT_NAME_LOWER@-static DESTINATION lib)
 endif()
 
 if(BUILD_SHARED)
-  add_library(@PROJECT_NAME_LOWER@-shared SHARED ${@PROJECT_NAME@Sources})
+  add_library(@PROJECT_NAME_LOWER@-shared SHARED ${LibSources})
   set_target_properties(@PROJECT_NAME_LOWER@-shared PROPERTIES OUTPUT_NAME @PROJECT_NAME_LOWER@)
   target_compile_options(@PROJECT_NAME_LOWER@-shared PRIVATE "-DAPI_SHARED_BUILD")
   install(TARGETS @PROJECT_NAME_LOWER@-shared DESTINATION lib)

@@ -10,7 +10,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Install clang-format
-        run: sudo apt-get install clang-format
+        run: sudo apt-get update && sudo apt-get install -y clang-format
 
       - name: Check for changes and format
         run: |
@@ -25,7 +25,7 @@ jobs:
 
             git add .
 
-            git commit -m "Apply clang-format"
+            git commit -m "Apply clang-format" || echo "No changes to commit"
             git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }} HEAD:${{ github.ref }}
           else
             echo "No relevant changes to format."

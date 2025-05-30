@@ -9,16 +9,13 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Download build system
-        run: sudo apt-get install clang ninja
-
-      - name: Get APIMacros and execute
-        run: |
-          curl -s https://raw.github.com/IHateGameDev/APIMacros/getAPIMacros.sh | sh @API_MACROS_DEPS@
+      - name: Install build system
+        run: sudo apt-get update && sudo apt-get install -y clang ninja-build
 
       - name: Build Project
         run: |
           mkdir build
           cd build
-          cmake -DCMAKE_BUILD_TYPE=Release -DBUILD_SHARED -DBUILD_TESTS -DLAUNCH_TESTS .. -G Ninja
+          cmake -DCMAKE_BUILD_TYPE=Release -DBUILD_SHARED=ON -DBUILD_TESTS=ON -DLAUNCH_TESTS=ON .. -G Ninja
           ninja
+

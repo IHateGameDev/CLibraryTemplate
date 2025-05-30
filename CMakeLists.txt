@@ -6,7 +6,6 @@ option(REMOVE_INPUTS "Remove *.in files" ON)
 set(PROJECT_NAME "defaultProjectName" CACHE STRING "Project name insert")
 set(LIBRARY_PREFIX "defaultLibraryPrefix" CACHE STRING "Library prefix")
 set(STRUCT_PREFIX "${LIBRARY_PREFIX}" CACHE STRING "Struct prefix")
-set(API_MACROS_DEPS "api" CACHE STRING "APIMacros deps")
 
 string(TOUPPER ${LIBRARY_PREFIX} MACRO_PREFIX)
 string(TOLOWER ${LIBRARY_PREFIX} FUNCTION_PREFIX)
@@ -20,7 +19,6 @@ message(STATUS "Struct prefix: ${STRUCT_PREFIX}")
 message(STATUS "Macro prefix: ${MACRO_PREFIX}")
 message(STATUS "Function prefix: ${FUNCTION_PREFIX}")
 message(STATUS "Current year: ${CURRENT_YEAR}")
-message(STATUS "APIMacros deps: ${API_MACROS_DEPS}")
 
 file(GLOB_RECURSE ffi "*.in")
 
