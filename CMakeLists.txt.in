@@ -7,9 +7,8 @@ option(BUILD_STATIC "Building static library" ON)
 option(BUILD_SHARED "Building shared library" OFF)
 option(BUILD_TESTS "Building tests for library" ON)
 
-option(C_COMPILER "Compiler for C" STRING "clang")
-option(ASSEMBLER "Assembler" STRING "clang")
-option(OPT_LEVEL "Optimization level for compiler \"-O3\"" STRING "3")
+set(C_COMPILER "clang" CACHE STRING "Compiler for C")
+set(OPT_LEVEL "3" CACHE STRING "Optimization level")
 
 ###### SETUP COMPILERS SECTION ######
 
@@ -20,17 +19,6 @@ if(C_COMPILER_PATH)
   set(CMAKE_C_COMPILER ${C_COMPILER_PATH})
 else()
   message(WARNING "${C_COMPILER} not found. Please install it.")
-endif()
-
-if(ASSEMBLER AND ASSEMBLER NOT STREQUAL C_COMPILER)
-  find_program(ASSEMBLER_PATH ${ASSEMBLER})
-  
-  if(ASSEMBLER_PATH)
-    message(STATUS "${ASSEMBLER} found: ${ASSEMBLER_PATH}")
-    set(CMAKE_ASM_COMPILER ${ASSEMBLER_PATH})
-  else()
-    message(WARNING "${ASSEMBLER} not found, using default assembler.")
-  endif()
 endif()
 
 ###### SETUP C SECTION ######
