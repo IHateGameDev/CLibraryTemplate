@@ -21,7 +21,12 @@ git clone https://github.com/IHateGameDev/@PROJECT_NAME@.git
 cd @PROJECT_NAME@
 
 # Get APIMacros dependencies if they are not installed:
-wget https://raw.github.com/IHateGameDev/APIMacros/getAPIMacros.sh | sh api # override shared useful
+wget https://raw.github.com/IHateGameDev/APIMacros/APIMacros/*deps*
+
+# Or clone and install it:
+git clone https://github.com/IHateGameDev/APIMacros.git
+cd APIMacros
+cmake ./ -G Ninja && sudo ninja install
 ```
 
 ### Building

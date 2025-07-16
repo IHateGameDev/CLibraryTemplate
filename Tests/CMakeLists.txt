@@ -1,4 +1,4 @@
-option(LAUNCH_TESTS "Enable launching tests." ON)
+option(LAUNCH_TESTS "Enable launching tests" ON)
 
 file(GLOB testsSources
   ${CMAKE_CURRENT_LIST_DIR}/*.c
@@ -10,7 +10,7 @@ foreach(testSource ${testsSources})
 
   if(LAUNCH_TESTS)
     add_custom_command(
-      TARGET launch-tests
+      TARGET test-${testName}
       POST_BUILD
       COMMAND test-${testName}
       COMMENT "Running test: ${testName}"
@@ -20,6 +20,7 @@ endforeach()
 
 if(LAUNCH_TESTS)
   add_custom_target(launch-tests ALL
+    DEPENDS ${testsSources}
     COMMENT "Launching all tests..."
   )
 endif()

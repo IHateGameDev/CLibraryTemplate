@@ -20,7 +20,7 @@ jobs:
             echo "Formatting changed files..."
             echo "$CHANGED_FILES" | grep -E '\.c$|\.cpp$|\.h$|\.hpp$|\.ino$' | xargs clang-format -i
 
-            git config --global user.name "IHGD-github-actions"
+            git config --global user.name "github-actions"
             git config --global user.email "ihategamedev@proton.me"
 
             git add .
