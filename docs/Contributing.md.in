@@ -15,12 +15,12 @@ Thank you for considering contributing to our project! We appreciate your help.
 
 - Use **2** spaces for indentation.
 - Name variables in `camelCase`.
-- Use `API` from [APIMacros](https://github.com/IHateGameDev/APIMacros)/api.h before public functions.
+- Use `API` from [APIMacros](https://github.com/IHateGameDev/APIMacros/APIMacros)/api.h before public functions.
 - Use library prefix in public functions.
 - `prefixActionStruct` naming for init / create / new functions: `API info* libNewInfo()`.
 - `prefixNameStruct` naming for other functions: `API void libInfoPushInt()` but if the action is more important you can use `prefixActionStruct` or `prefixAction`.
 
-## Commit standards
+## Commit Standards
 
 - Clear and understandable name of the added / deleted / changed / fixed
 - Use [actions](#actionsTable) in name (optional but desirable)
@@ -59,4 +59,4 @@ This project is licensed under the MIT License. Please see the [License](../Lice
 
 ## Contact Information
 
-If you have any questions, feel free to reach out to us at <ihategamedev@proton.me> or [Telegram](https://t.me/IHateGameDev).
+If you have any questions, feel free to reach out to us at <ihategamedev@proton.me> or [Discord](https://discordapp.com/users/1258273988908552293).

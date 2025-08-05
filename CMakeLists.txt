@@ -4,6 +4,7 @@ project(Template)
 option(REMOVE_INPUTS "Remove *.in files" ON)
 
 set(PROJECT_NAME "defaultProjectName" CACHE STRING "Project name insert")
+set(FOUNDERS "Semenovih Andrey" CACHE STRING "Project founders")
 set(LIBRARY_PREFIX "defaultLibraryPrefix" CACHE STRING "Library prefix")
 set(STRUCT_PREFIX "${LIBRARY_PREFIX}" CACHE STRING "Struct prefix")
 
@@ -14,6 +15,7 @@ string(TOLOWER ${PROJECT_NAME} PROJECT_NAME_LOWER)
 string(TIMESTAMP CURRENT_YEAR "%Y")
 
 message(STATUS "Poject name: ${PROJECT_NAME}")
+message(STATUS "Founders: ${FOUNDERS}")
 message(STATUS "Library prefix: ${LIBRARY_PREFIX}")
 message(STATUS "Struct prefix: ${STRUCT_PREFIX}")
 message(STATUS "Macro prefix: ${MACRO_PREFIX}")

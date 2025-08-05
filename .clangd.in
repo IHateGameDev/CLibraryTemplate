@@ -3,3 +3,10 @@ CompileFlags:
     - -x
     - c
     - -std=c23
+    - -W*
+
+Diagnostics:
+  ClangTidy:
+    CheckOptions:
+      readability-identifier-naming.VariableCase: CamelCase
+    FastCheckFilter: Strict
