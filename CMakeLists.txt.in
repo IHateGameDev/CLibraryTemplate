@@ -3,12 +3,13 @@ project(@PROJECT_NAME@)
 
 ###### OPTIONS SECTION ######
 
-option(BUILD_STATIC "Building static library" ON)
-option(BUILD_SHARED "Building shared library" OFF)
+option(BUILD_STATIC "Building static library" OFF)
+option(BUILD_SHARED "Building shared library" ON)
 option(BUILD_TESTS "Building tests for library" ON)
 
 set(C_COMPILER "clang" CACHE STRING "Compiler for C")
-set(OPT_LEVEL "3" CACHE STRING "Optimization level")
+set(OPT_LEVEL "2" CACHE STRING "Optimization level")
+set(C_STD "23" CACHE STRING "C standard")
 
 ###### SETUP COMPILERS SECTION ######
 
@@ -23,7 +24,7 @@ endif()
 
 ###### SETUP C SECTION ######
 
-set(CMAKE_C_STANDARD 23)
+set(CMAKE_C_STANDARD ${C_STD})
 set(CMAKE_C_STANDARD_REQUIRED ON)
 
 include_directories(
